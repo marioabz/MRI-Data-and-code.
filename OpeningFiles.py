@@ -4,5 +4,7 @@
 
 
 import pydicom
+import numpy #To handle the array of bytes that contains the image.
 
-lst=pydicom.rad_file("6293")
+
+lst=pydicom.read_file("6293")
