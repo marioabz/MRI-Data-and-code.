@@ -2,9 +2,16 @@
 #Dicom package https://github.com/darcymason/pydicom
 #Open DICOM file basics.
 
-
 import pydicom
-import numpy #To handle the array of bytes that contains the image.
-
+import matplotlib
+matplotlib.use('TkAgg')
+import pylab
 
 lst=pydicom.read_file("6293")
+
+#To know the image dimensions
+print('Dimensions of image are: %s' %(lst.pixel_array.shape,))
+
+#Displaying pixel array is an image
+pylab.imshow(lst.pixel_array, cmap=pylab.cm.gray)
+pylab.show()
