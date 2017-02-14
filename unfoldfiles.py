@@ -1,6 +1,6 @@
 __author__ = 'Mario'
 import os
-import numpy
+import numpy, pylab, pydicom
 list=os.listdir()
 
 # filename=os.path.basename(sys.argv[0])    
@@ -24,4 +24,13 @@ for index in sorted(idx, reverse=True):
 #Make a big data tuple to handle in one variable all images.
 #Implement for loop for that
 
-data = pydicom.read_file(list[inx])
+X=[]
+for inx in list:
+    data = pydicom.read_file(inx)
+    X.append(data)
+
+
+for xy in X:
+    pylab.imshow(xy.pixel_array, cmap=pylab.cm.gray)
+    pylab.show()
+    input('Next...')
