@@ -10,27 +10,23 @@ idx=[]
 
 for x in list:
     hh= list.index(x)
-
-    if x[len(x)-3:len(x)] == '.py':
+    
+    if x[len(x)-3:len(x)]=='.py' |  x=='.idea':
         idx.append(hh)
 
-    if x == '.idea':
-        idx.append(hh)
-
+ 
 for index in sorted(idx, reverse=True):
     del list[index]
-
 
 #Make a big data tuple to handle in one variable all images.
 #Implement for loop for that
 
 X=[]
 for inx in list:
-    data = pydicom.read_file(inx)
-    X.append(data)
+    X.append(pydicom.read_file(inx))
 
-
-for xy in X:
+"For displaying all images"
+"""for xy in X:
     pylab.imshow(xy.pixel_array, cmap=pylab.cm.gray)
     pylab.show()
-    input('Next...')
+    input('Next...')"""
