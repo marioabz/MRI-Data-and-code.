@@ -1,6 +1,6 @@
 __author__ = 'Mario'
 import os
-import numpy, pylab, pydicom
+import numpy, pylab, dicom
 
 def callImages():
 
@@ -24,7 +24,7 @@ def callImages():
 
     X=[]
     for inx in list:
-        X.append(pydicom.read_file(inx))
+        X.append(dicom.read_file(inx))
     
     return X
 
