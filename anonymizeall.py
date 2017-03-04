@@ -1,7 +1,7 @@
 __author__ = 'Mario'
 
 import os
-from pydicom.examples.anonymize import anonymize
+from dicom.examples.anonymize import anonymize
 
 list= os.listdir()
 
