@@ -1,10 +1,10 @@
 __author__ = 'Mario'
 
 from hist import hist
-import pydicom
+import dicom
 import pylab
 
-im=pydicom.read_file('6924')
+im=dicom.read_file('6924')
 im=im.pixel_array
 
 h, minx =hist(im)
