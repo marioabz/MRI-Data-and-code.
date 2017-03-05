@@ -17,4 +17,4 @@ def hist(x):
         xsum=np.sum(np.sum(aux))
         ls.append(xsum)
 
-    return ls, minx
+    return ls
