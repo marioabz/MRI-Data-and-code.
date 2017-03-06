@@ -1,19 +1,31 @@
 __author__ = 'Mario'
 
-from sklearn import preprocessing
-import pylab
+import sklearn.preprocessing as sklpp
+import pylab, os
 from hist import hist
 from Unfoldfiles import callImages
+import numpy
+X= callImages(os.listdir())
+f=[]
+y=[]
+for x in X:
+  az=np.amax(x)
+  ac=np.amin(x)
+  f.append(az)
+  y.append(ac)
 
-X= callImages()
+m=numpy.column_stack((numpy.asarray(f),numpy.asarray(y)))
+o,p=m.shape
 
-for x in X
-  x,y=x.shape
+for i in range(len(f)):
+  print(m[i,:])
+  
+  
+#for i in X:
+  #scaler=sklpp.MinMaxScaler()
+  #Xminmax = min_max_scaler.fit_transform(i)
 
-
-pylab.plot(x)
-pylab.plot(y)
-pylab.show()
+#First it is necesar
 
 #This allows to watch the range of gray intensities to see if normalization could work.
 #Pre-processing step
