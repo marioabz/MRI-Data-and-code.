@@ -1,5 +1,4 @@
 @author: Mario
-"""
 
 from matplotlib.pyplot import draw,ion
 import matplotlib.pyplot as plt
