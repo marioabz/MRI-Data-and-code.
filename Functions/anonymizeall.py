@@ -10,7 +10,8 @@ def anonymize_all(folder):
     anonfolder = folder+'ANMZ'
     os.mkdir(anonfolder)
     #To get index of non dicom files
-        
+    
+    #Adding needed tags and hiding institution name.    
     for z in list:  #List of subfolders
         temp_var=folder+'/'+z
         for w in os.listdir(temp_var):
@@ -22,7 +23,7 @@ def anonymize_all(folder):
             data.InstitutionName='No location'
             data.save_as(an_var)
                 
-    #Adding necesary tags to properly anonymize all dicom files.
+    #Anonymize files and create NEW folder within the same direction
         
     for x in list:
         tempdir=anonfolder+'/'+x+'ANMZ'
