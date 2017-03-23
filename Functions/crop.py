@@ -4,10 +4,9 @@ Created on Sun Mar 12 13:06:07 2017
 @author: Mario
 """
 
-import cv2, dicom
+import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-From 
+#import matplotlib.pyplot as plt 
 
 
 def crop(X):
@@ -64,9 +63,11 @@ def crop(X):
         	cv2.imshow("Region of Interest", roi)
         	cv2.waitKey(0)
     
-    return roi, image, ((x0,y0),(xf,yf))
+    cv2.destroyAllWindows()
+    
+    return roi
 
-data=dicom.read_file('C:/Users/Mario/Desktop/algoritmo/pato 1/ser003img00109.dcm')
+"""data=dicom.read_file('C:/Users/Mario/Desktop/algoritmo/pato 1/ser003img00109.dcm')
 
 roi,image= crop(data.pixel_array)
 
@@ -87,6 +88,4 @@ axes[0,0].imshow(image)
 axes[0,1].imshow(roi,cmap='gray')
 f=axes[0,2]=fig.add_subplot(1,3,3)
 axes[0,2].hist(roi.ravel(),bins=150,color='blue')
-f.set_title('Histograma de región de interés',fontsize=10)
-
-
+f.set_title('Histograma de región de interés',fontsize=10)"""
