@@ -7,6 +7,7 @@ Created on Sun Mar 12 13:06:07 2017
 import cv2, dicom
 import numpy as np
 import matplotlib.pyplot as plt
+From 
 
 
 def crop(X):
@@ -63,11 +64,11 @@ def crop(X):
         	cv2.imshow("Region of Interest", roi)
         	cv2.waitKey(0)
     
-    return roi, image
+    return roi, image, ((x0,y0),(xf,yf))
 
 data=dicom.read_file('C:/Users/Mario/Desktop/algoritmo/pato 1/ser003img00109.dcm')
 
-roi,image=get_roi(data.pixel_array)
+roi,image= crop(data.pixel_array)
 
 cv2.destroyAllWindows()
 axes = np.zeros((1, 3), dtype=np.object)
