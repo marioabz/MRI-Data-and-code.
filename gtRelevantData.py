@@ -70,8 +70,7 @@ class gtRelevantData(object):
         except AttributeError:
             self.StudyComments="No comments"
             
-            
-            
+
     def draw_line(self,point1,point2,color,thickness):
             for i in range(3): self.floatImage[:,:,i]= scale(self.Image)
             imgm= line(self.floatImage,point1,point2,color,thickness)
