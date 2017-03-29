@@ -41,8 +41,8 @@ class Preprocessing(object):
     
     def contrast_stretch(self):
         master= Tk();
-        X= get_range(master)
-        return exposure.rescale_intensity(self.Img_stretch,in_range=X)
+        X= get_range(master);
+        return (exposure.rescale_intensity(self.Img,in_range=X), X)
     
     
         
