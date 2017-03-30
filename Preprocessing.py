@@ -25,7 +25,7 @@
 
 from scipy.stats import signaltonoise as s2nR
 from skimage import exposure
-import numpy as np
+from numpy import zeros
 from tkinter import Tk
 from Functions.sel_range import get_range
 
@@ -35,14 +35,22 @@ class Preprocessing(object):
     def __init__(self, x):
         self.s2nR=         0.0
         self.Img =         x
-        self.img_stretch=  np.zeros(x.shape, float)
-
+        self.img_stretch=  zeros(x.shape, float)
 
     
     def contrast_stretch(self):
         master= Tk();
         X= get_range(master);
-        return (exposure.rescale_intensity(self.Img,in_range=X), X)
+        self.img_stretch= exposure.rescale_intensity(self.Img,in_range=X)
+        
+    
+    def s2nR(self):
+        self.s2nR=s2nR(self.Img, axis=None)
+        
+        
+        
+        
+        
     
     
         
