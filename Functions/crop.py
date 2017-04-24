@@ -65,8 +65,7 @@ def crop(X):
     
     cv2.destroyAllWindows()
     
-    return roi
-
+    return ((x0,y0),(xf,yf))
 """data=dicom.read_file('C:/Users/Mario/Desktop/algoritmo/pato 1/ser003img00109.dcm')
 
 roi,image= crop(data.pixel_array)

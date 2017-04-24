@@ -12,7 +12,7 @@ def get_range(master):
     
     def show_values():
         global a,b
-        a,b=w1.get(),w2.get()
+        a,b= w1.get(), w2.get()
         master.destroy()
         master.quit()
 
