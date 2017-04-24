@@ -25,9 +25,12 @@
 
 from scipy.stats import signaltonoise as s2nR
 from skimage import exposure
-from numpy import zeros
+from numpy import zeros, mean
 from tkinter import Tk
 from Functions.sel_range import get_range
+from Functions.mask import select_threshold_mask
+from skfuzzy.image import nmse
+
 
 
 class Preprocessing(object):
@@ -36,16 +39,36 @@ class Preprocessing(object):
         self.s2nR=         0.0
         self.Img =         x
         self.img_stretch=  zeros(x.shape, float)
-
+        self.defocus_img=  zeros(x.shape, float)
     
     def contrast_stretch(self):
         master= Tk();
         X= get_range(master);
         self.img_stretch= exposure.rescale_intensity(self.Img,in_range=X)
-        
     
     def s2nR(self):
-        self.s2nR=s2nR(self.Img, axis=None)
+        self.s2nR=s2nR(self.Img, axis=None) 
+        
+    def histogram_eq(self, S, _mask_sltr=True):
+        if _mask_sltr == True:
+            thrld= select_threshold_mask(S)
+        else:
+            thrld= mean(S)
+        return exposure.equalize_hist(S,mask=S>thrld)
+    
+    def adaptive_hist(self,img):
+        return exposure.equalize_adapthist(img)
+    
+    def nmse(self,x,y):
+        return nmse(x,y)
+    
+    
+        
+
+
+
+        
+        
         
         
         
