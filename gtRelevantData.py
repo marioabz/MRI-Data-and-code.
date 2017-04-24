@@ -28,7 +28,12 @@ from cv2 import line
 from Functions.Scale import scale
 from matplotlib.pyplot import hist
 from Functions.crop import crop
+from sys import path
+from os import listdir
+path.append('./DCMfiles/')
 
+for m in listdir('DCMfiles'):
+    path.append(m)
 
 
 class gtRelevantData(object):
@@ -41,7 +46,8 @@ class gtRelevantData(object):
         self.floatImage=                    scale(self.Image)
         self.PixelSpacing=                  data.PixelSpacing
         self.PixelArea=                     float(data.PixelSpacing[0])*float(data.PixelSpacing[1])
-        self.roi=                           zeros(data.pixel_array.shape+(3,),float)
+        self.roi=                           zeros(data.pixel_array.shape+(3,), int)
+        self.image_dict=                    {'image':self.Image}
     
         try:
             self.PixelPresentation=         data[0x2005,0x140f][0][0x08,0x9205].value
@@ -49,9 +55,9 @@ class gtRelevantData(object):
             self.PixelPresentation=         'Not included'
          
         try:    
-            self.AcquisitionContrast=           data[0x2005,0x140f][0][0x08,0x9209].value
+            self.AcquisitionContrast=       data[0x2005,0x140f][0][0x08,0x9209].value
         except KeyError:
-            self.AcquisitionContrast=           data.SeriesDescription
+            self.AcquisitionContrast=       data.SeriesDescription
                                         
         self.MagneticFieldStrength=         int(data.MagneticFieldStrength)
         
@@ -79,21 +85,24 @@ class gtRelevantData(object):
     
     def image_hist(self):
         histt,_,_= hist(self.Image.ravel(), bins=200, color='red')
-        return hist
+        return histt
     
     def floatImage_hist(self):
         histt,_,_= hist(self.floatImage.ravel(), bins=200, color='red')
         return histt
         
         
-    def get_roi(self):
-        self.roi= crop(self.Image)
-        
+    def get_roi(self): #Cropping region of interest out of the image.
+        roi= crop(self.Image)
+        self.roi= self.Image[roi[1]:roi[3],roi[0]:roi[2]]
         
     def roi_histogram(self):
         histt,_,_= hist(self.roi[:,:,0].ravel(), bins=200,color='red')
         return histt
 
-
+    def store_processed_imgs(self, img):
+        self.image_dict.update({input('Image name: '):img})
+        
+        
               
-                       
+        
