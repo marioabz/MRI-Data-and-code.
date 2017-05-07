@@ -76,7 +76,6 @@ class gtRelevantData(object):
         except AttributeError:
             self.StudyComments="No comments"
             
-
     def draw_line(self,point1,point2,color,thickness):
             for i in range(3): self.floatImage[:,:,i]= scale(self.Image)
             imgm= line(self.floatImage,point1,point2,color,thickness)
@@ -94,7 +93,7 @@ class gtRelevantData(object):
         
     def get_roi(self): #Cropping region of interest out of the image.
         roi= crop(self.Image)
-        self.roi= self.Image[roi[1]:roi[3],roi[0]:roi[2]]
+        self.roi= self.Image[roi[0][1]:roi[1][1],roi[0][0]:roi[1][0]]
         
     def roi_histogram(self):
         histt,_,_= hist(self.roi[:,:,0].ravel(), bins=200,color='red')

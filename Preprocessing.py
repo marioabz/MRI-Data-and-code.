@@ -24,12 +24,14 @@
 
 
 from scipy.stats import signaltonoise as s2nR
-from skimage import exposure
+from skimage import exposure, rank
 from numpy import zeros, mean
 from tkinter import Tk
 from Functions.sel_range import get_range
 from Functions.mask import select_threshold_mask
+from skfuzzy import defocus_local_means
 from skfuzzy.image import nmse
+from skimage.filters import sobel
 
 
 
@@ -61,6 +63,15 @@ class Preprocessing(object):
     
     def nmse(self,x,y):
         return nmse(x,y)
+    
+    def dlm(self):
+        return defocus_local_means(self.Img)
+    
+    def contrast_enhancement(self):
+        return 
+    
+    def detect_borders(self):
+        
     
     
         

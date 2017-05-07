@@ -37,7 +37,8 @@ def select_threshold_mask(X):
        toolbar = NavigationToolbar2TkAgg(canvas1, ui )
        toolbar.update()
        canvas1._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
-       slider = Scale(ui,orient=HORIZONTAL,length = 300,from_=X.min(),to=X.max(),variable=var,command=_update)
+       slider = Scale(ui,orient=HORIZONTAL,length = 300,from_=X.min(),
+                      to=X.max(),variable=var,command=_update)
        slider.pack()
        button = Button(master=ui, text='Quit', command=_quit)
        button.pack(side = BOTTOM)

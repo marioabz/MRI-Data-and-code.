@@ -6,10 +6,11 @@ Created on Fri Apr 14 21:12:59 2017
 """
 
 import numpy as np
-import skfuzzy.cluster._cmeans as fuzz
 from sklearn.cluster import KMeans
 from time import time
 from Functions.crop import crop
+from skimage.morphology import watershed
+
 
 class Segmentation(object):
     
@@ -32,9 +33,9 @@ class Segmentation(object):
         self.kmeans_clusters=   self.kmeans.fit(self.ind_mat).labels_.reshape(self.n,self.m)
         end=time()
         print('Elapsed time in seconds: ', end-start)
-        return start-end
+        return end-start
     
-    def quantif_area_mm(self, label, mm):
+    def quantify_area_mm(self, label, mm):
         qm = np.sum(np.int16(self.image==label))
         return qm*mm
     
@@ -50,6 +51,8 @@ class Segmentation(object):
             if np.sum(r)>np.sum(mtx): 
                 mtx = r
         return i
+    
+    
             
                    
         
