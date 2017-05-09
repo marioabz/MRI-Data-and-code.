@@ -14,10 +14,11 @@ from skimage.morphology import watershed
 
 class Segmentation(object):
     
-    def __init__(self,X,clusters=5,max_iter=300):
+    def __init__(self,X,clusters=5,max_iter=300,default_centroids=True):
         self.X=                 X
         self.n,self.m=          X.shape
         self.clusters=          clusters
+        self.centroids=         np.zeros((self.clusters,3))
         self.max_iter=          max_iter
         self.kmeans=            KMeans(self.clusters, precompute_distances=True)
         self.kmeans_clusters=   np.zeros(self.X.shape,int)
@@ -52,9 +53,12 @@ class Segmentation(object):
                 mtx = r
         return i
     
+    def def_centroids(self):
+        self.centroids=np.column_stack((np.full((self.clusters,3),self.n/2),np.linspace(self.X.min(),self.X.max(),self.clusters)))
     
-            
-                   
+    
+    
+    
         
     #def fcm(self):
         

@@ -33,7 +33,7 @@ from skfuzzy import defocus_local_means
 from skfuzzy.image import nmse
 from skimage.filters import sobel,median
 from skimage.filters.rank import enhance_contrast
-from skimage.morphology import disk,square
+from skimage.morphology import disk,square,erosion
 from skimage.util import random_noise
 
 class Preprocessing(object):
@@ -42,6 +42,7 @@ class Preprocessing(object):
         self.s2nR=         0.0
         self.img =         x
         self.img_over=     x
+        self.img_reset=    x
     
     def contrast_stretch(self):
         master= Tk();
@@ -65,19 +66,28 @@ class Preprocessing(object):
         return nmse(x,y)
     
     def dlm(self):
-        self.img_over= defocus_local_means(self.Img)
+        self.img_over= defocus_local_means(self.img)
     
     def contrast_enhancement(self, local_mtx=disk(5)):
-        self.img_over= enhance_contrast(self.Img, local_mtx)
+        self.img_over= enhance_contrast(self.img, local_mtx)
     
     def detect_borders(self):
-        return sobel(self.Img)
+        return sobel(self.img)
     
     def add_sp_noise(self,percentage=0.5):
-        self.img_over= random_noise(self.Img, mode='s&p', salt_vs_pepper=percentage)
+        self.img_over= random_noise(self.img, mode='s&p', salt_vs_pepper=percentage)
     
     def median_filter(self,struct=disk(5)):
-        self.img_over= median(self.Img, selem=struct)
+        self.img_over= median(self.img, selem=struct)
+        
+    def erosion(self, struct= disk(5)):
+        self.img_over=erosion(self.img, selem=struct)
+        
+    def reset_img(self):
+        self.img, self.img_over= self.img_reset
+        
+    def apply_same_img(self):
+        self.img=self.img_over
     
     
     
