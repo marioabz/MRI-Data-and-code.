@@ -22,7 +22,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>. #
 ########################################################################
 
-
+import numpy as np
 from scipy.stats import signaltonoise as s2nR
 from skimage import exposure
 from numpy import zeros, mean
@@ -35,6 +35,8 @@ from skimage.filters import sobel,median
 from skimage.filters.rank import enhance_contrast
 from skimage.morphology import disk,square,erosion
 from skimage.util import random_noise
+from Functions.Scale import scale
+from numpy import uint16
 
 class Preprocessing(object):
     
@@ -75,21 +77,28 @@ class Preprocessing(object):
         return sobel(self.img)
     
     def add_sp_noise(self,percentage=0.5):
-        self.img_over= random_noise(self.img, mode='s&p', salt_vs_pepper=percentage)
+        self.img_over= random_noise(scale(self.img), mode='s&p', salt_vs_pepper=percentage)
     
     def median_filter(self,struct=disk(5)):
-        self.img_over= median(self.img, selem=struct)
+        self.img_over= median(uint16(self.img), selem=struct)
         
     def erosion(self, struct= disk(5)):
         self.img_over=erosion(self.img, selem=struct)
         
     def reset_img(self):
-        self.img, self.img_over= self.img_reset
+        self.img, self.img_over= self.img_reset, self.img_reset
         
     def apply_same_img(self):
         self.img=self.img_over
     
+    def psnr(self,img, p_img):
+        emc=1/(img.shape[0]*img.shape[1])*np.sum((img-p_img)**2)
+        psnr=10*np.log10(1/emc)
+        return psnr
     
+    def contrast_measure(self):
+        a=1/(self.img.shape[0]*self.img.shape[1]-1)
+        return np.sqrt(a*np.sum( (self.img_over-self.img_over.mean())**2) )
     
     
         
