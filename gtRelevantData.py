@@ -30,6 +30,7 @@ from matplotlib.pyplot import hist
 from Functions.crop import crop
 from sys import path
 from os import listdir
+import matplotlib.pyplot as plt
 path.append('./DCMfiles/')
 
 for m in listdir('DCMfiles'):
@@ -101,6 +102,11 @@ class gtRelevantData(object):
 
     def store_processed_imgs(self, img):
         self.image_dict.update({input('Image name: '):img})
+        
+    def show(self,cmap='gray'):
+        plt.imshow(self.Image,cmap=cmap)
+        
+        
         
         
               
