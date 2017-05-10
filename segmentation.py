@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 from time import time
 from Functions.crop import crop
-from skimage.morphology import watershed
+
 
 
 class Segmentation(object):
