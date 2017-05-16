@@ -7,13 +7,13 @@ from dicom.UID import generate_uid
 
 def anonymize_all(folder):
 
-    list= os.listdir(folder) #Folders within gral. folder.
+    lista= os.listdir(folder) #Folders within gral. folder.
     anonfolder = folder+'anmzd'
     os.mkdir(anonfolder)
         #To get index of non dicom files
         
         #Adding needed tags and hiding institution name.    
-    for z in list:  #List of subfolders
+    for z in lista:  #List of subfolders
         temp_var=folder+'/'+z
         for w in os.listdir(temp_var):
             an_var= temp_var+'/'+w
@@ -26,7 +26,7 @@ def anonymize_all(folder):
                     
         #Anonymize files and create NEW folder within the same direction
             
-    for x in list:
+    for x in lista:
         tempdir=anonfolder+'/'+'anonymized-'+x
         os.makedirs(tempdir)
         tempfold=folder+'/'+x
