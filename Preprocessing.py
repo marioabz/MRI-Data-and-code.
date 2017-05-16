@@ -33,7 +33,7 @@ from skfuzzy import defocus_local_means
 from skfuzzy.image import nmse
 from skimage.filters import sobel,median
 from skimage.filters.rank import enhance_contrast
-from skimage.morphology import disk,square,erosion
+from skimage.morphology import disk,square,erosion,dilation,opening
 from skimage.util import random_noise
 from Functions.Scale import scale
 from numpy import uint16
@@ -63,8 +63,8 @@ class Preprocessing(object):
             thrld= mean(self.img)
         self.img_over= exposure.equalize_hist(self.img ,mask=self.img>thrld)
     
-    def adaptive_hist(self,kernel=3):
-        self.img_over= exposure.equalize_adapthist(self.img,kernel_size=kernel)
+    def adaptive_hist(self,kernel=15):
+        self.img_over= np.int16(exposure.equalize_adapthist(np.uint16(self.img),kernel_size=kernel)*self.img.max())
     
     def nmse(self,x,y):
         return nmse(x,y)
@@ -73,13 +73,13 @@ class Preprocessing(object):
         self.img_over= defocus_local_means(self.img)
     
     def contrast_enhancement(self, local_mtx=disk(5)):
-        self.img_over= enhance_contrast(self.img, local_mtx)
+        self.img_over= enhance_contrast(uint16(self.img), local_mtx,mask=self.img>self.img.mean())
     
     def detect_borders(self):
         return sobel(self.img)
     
     def add_sp_noise(self,percentage=0.5):
-        self.img_over= random_noise(scale(self.img), mode='s&p', salt_vs_pepper=percentage)
+        self.img_over= uint16(random_noise(scale(self.img), mode='s&p', salt_vs_pepper=percentage)*self.img.max())
     
     def median_filter(self,struct=disk(5)):
         self.img_over= median(uint16(self.img), selem=struct)
@@ -94,7 +94,7 @@ class Preprocessing(object):
         self.img=self.img_over
     
     def psnr(self,img, p_img):
-        emc=1/(img.shape[0]*img.shape[1])*np.sum((img-p_img)**2)
+        emc=1/(img.shape[0]*img.shape[1])*np.sum((scale(img)-scale(p_img))**2)
         psnr=10*np.log10(1/emc)
         return psnr
     
@@ -115,6 +115,7 @@ class Preprocessing(object):
         a=np.array(a)
         clas=c.index(a.max())+1
         E= ndi.binary_fill_holes(lbl==clas)
+        E=dilation(E,selem=struct)
         
         return self.img * E
             
