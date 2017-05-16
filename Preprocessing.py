@@ -37,6 +37,7 @@ from skimage.morphology import disk,square,erosion
 from skimage.util import random_noise
 from Functions.Scale import scale
 from numpy import uint16
+from scipy import ndimage as ndi
 
 class Preprocessing(object):
     
@@ -45,6 +46,7 @@ class Preprocessing(object):
         self.img =         x
         self.img_over=     x
         self.img_reset=    x
+        self.type=         x.dtype
     
     def contrast_stretch(self):
         master= Tk();
@@ -100,6 +102,23 @@ class Preprocessing(object):
         a=1/(self.img.shape[0]*self.img.shape[1]-1)
         return np.sqrt(a*np.sum( (self.img_over-self.img_over.mean())**2) )
     
+    def b2odt(self):
+        self.img_over=np.int16(self.img_over*self.img.max())
+        
+    def remove_skull(self, b_img, struct=disk(3)):
+        a=[]
+        F=erosion(b_img, selem=struct)
+        lbl=ndi.label(F)[0]
+        for i in range(lbl.max()-1):
+            a.append(np.sum(lbl==(i+1)))
+        c=a
+        a=np.array(a)
+        clas=c.index(a.max())+1
+        E= ndi.binary_fill_holes(lbl==clas)
+        
+        return self.img * E
+            
+    
     
         
 
@@ -108,17 +127,4 @@ class Preprocessing(object):
         
         
         
-        
-        
-        
-        
     
-    
-        
-        
-        
-        
-        
-        
-        
-        
