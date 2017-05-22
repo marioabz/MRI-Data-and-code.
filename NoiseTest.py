@@ -37,6 +37,10 @@ for i in listdir('DCMfiles'):
 
 img_dimg=np.array(img_dimg).reshape((16,2))
 img_cleaimg=np.array(img_cleaimg).reshape((16,2))
+
+for x,i in enumerate(r):
+    r[x]='T1' in i
+
 e=np.array(r).reshape((16,2))
 d=[] #empty list       
 
@@ -44,7 +48,7 @@ for x,[i,j] in enumerate(e):
     if j:
         img_dimg[x,0],img_dimg[x,1]=img_dimg[x,1],img_dimg[x,0]
         img_cleaimg[x,0],img_cleaimg[x,1]=img_cleaimg[x,1],img_cleaimg[x,0]
-
+print('Noise Salt & pepper test')
 print('T1       &      T2')
 
 for i in range(16):
