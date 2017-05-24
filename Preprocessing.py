@@ -38,6 +38,8 @@ from skimage.util import random_noise
 from Functions.Scale import scale
 from numpy import uint16
 from scipy import ndimage as ndi
+from Functions.crop import crop
+
 
 class Preprocessing(object):
     
@@ -118,6 +120,10 @@ class Preprocessing(object):
         E=dilation(E,selem=struct)
         
         return self.img * E
+    
+    def get_roi(self): #Cropping region of interest out of the image.
+        roi= crop(self.img)
+        self.img_over= self.img[roi[0][1]:roi[1][1],roi[0][0]:roi[1][0]]
             
     
     
