@@ -81,7 +81,8 @@ class Segmentation(object):
         return i
     
     def def_centroids(self):
-        self.centroids=np.column_stack((np.full((self.clusters,3),self.n/2),np.linspace(self.X.min(),self.X.max(),self.clusters)))
+        self.centroids=np.column_stack((np.full((self.clusters,3),self.n/2),
+                                        np.linspace(self.X.min(),self.X.max(),self.clusters)))
     
     
     
