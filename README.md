@@ -1,5 +1,5 @@
 # MRI-Data-and-code.
-MRI analisis through computer vision techniques.
+Brain MRI image analysis through computer vision techniques (segmentation and enhancement techniques). Presented as thesis project.
 
 Requisites:
 -Acaconda3 Python distribution: Because all needed packages are already installed except OpenCV.
