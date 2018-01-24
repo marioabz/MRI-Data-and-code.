@@ -2,7 +2,6 @@
 """
 @author: Mario
 """
-
 ########################################################################
 #   Class Preprocessing: Performs enhancement techniques to increase   #
 #   image quality.                                                     #
@@ -124,14 +123,3 @@ class Preprocessing(object):
     def get_roi(self): #Cropping region of interest out of the image.
         roi= crop(self.img)
         self.img_over= self.img[roi[0][1]:roi[1][1],roi[0][0]:roi[1][0]]
-            
-    
-    
-        
-
-
-
-        
-        
-        
-    
