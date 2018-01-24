@@ -18,8 +18,6 @@ import numpy as np
 r=[] #Empty list
 img_dimg=[]
 img_cleaimg=[]
-
-
   
 for i in listdir('DCMfiles'):
     for j in listdir('DCMfiles'+'/'+i):
@@ -54,10 +52,3 @@ print('T1       &      T2')
 for i in range(16):
     print('paciente & %.3f & %.3f & %.3f & %.3f' % (img_dimg[i,0],img_cleaimg[i,0],
                                          img_dimg[i,1],img_cleaimg[i,1]))
-
-        
-        
-        
-        
-        
-        
