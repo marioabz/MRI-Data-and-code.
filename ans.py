@@ -9,38 +9,7 @@ from os import listdir
 import numpy as np,dicom
 
 'Expert answers'
-ans=['si',      
- 'si',
- 'p',
- 'no',
- 'no',
- 'no',
- 'p',
- 'p',
- 'p',
- 'p',
- 'no',
- 'no',
- 'p',
- 'p',
- 'p',
- 'si',
- 'no',
- 'p',
- 'p',
- 'no',
- 'no',
- 'p',
- 'si',
- 'no',
- 'no',
- 'si',
- 'si',
- 'no',
- 'no',
- 'p',
- 'si',
- 'p']
+ans=['si','si','p','no','no','no','p','p','p','p','no','no','p','p','p','si','no','p','p','no','no','p','si','no','no','si','si','no','no','p','si','p']
 clus=[4, 4, 4, 3, 3, 3, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 4, 4, 4, 3, 3, 4, 4, 4, 4, 4, 4, 3, 3]
 print(' & T1 & T2 ')
 for i in ans:
@@ -70,10 +39,4 @@ for x,[i,j] in enumerate(cont):
 
 for s in range(16):
     print(s,'&  ', clus[s,0], '&   ', ans[s,0],'&   ',clus[s,0], '&' ,ans[s,1])
-    
-    
-    
-        
-        
-        
-    
+ 
